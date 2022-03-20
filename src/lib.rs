@@ -899,6 +899,7 @@ pub enum RenderOption {
     NoNodeStyles,
     NoNodeColors,
     NoArrows,
+    LRRankDir,
 }
 
 /// Returns vec holding all the default render options.
@@ -942,6 +943,11 @@ pub fn render_opts<'a,
     }
 
     writeln(w, &[g.kind().keyword(), " ", g.graph_id().as_slice(), " {"])?;
+
+    if options.contains(&RenderOption::LRRankDir) {
+        writeln(w,&["rankdir=LR"])?;
+    }
+
     for n in g.nodes().iter() {
         let colorstring;
 
